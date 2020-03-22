@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d8bf29de0b7af94fb1846630218e905, type: 3}
+  m_Name: MonsterSource_skeleton_tom
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5972808956255287051, guid: 3a2bc83203f1d184aa7290bb8de3a641, type: 3}
+  monsterSource:
+    refreshInternal: 10
+    refreshCnt: 5
+    initCnt: 3
+    maxCnt: 10
+    curCnt: 0
+    ActRng: 8
+    pos: {x: 0, y: 0, z: 0}
+    enemyCtrls: []
