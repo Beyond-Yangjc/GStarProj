@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Property_Knight
   m_EditorClassIdentifier: 
   property:
-    Hp: 100
-    Ep: 100
-    Atk: 10
+    Hp: 400
+    Ep: 400
+    Atk: 50
     Def: 10
     AtkRng: 1.5
     MoveSpeed: 10
     Acceleration: 20
     RotSpeed: 360
+    LockAngle: 45
+    LockDist: 5

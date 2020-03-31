@@ -35,6 +35,7 @@ namespace GStar.Prepare
 
         void OnMouse_1(InputManager.E_EventType _event, Vector3 _pos)
         {
+            if (this.isAlive == false) return;
             if (_event == InputManager.E_EventType.Up)
             {
                 RaycastHit _hit;
@@ -117,6 +118,7 @@ namespace GStar.Prepare
 
         void OnKey_S(InputManager.E_EventType _event)
         {
+            if (this.isAlive == false) return;
             if (_event == InputManager.E_EventType.Up)
             {
                 ClearCmds();
@@ -124,10 +126,16 @@ namespace GStar.Prepare
             }
         }
 
+        public override void GetHit(int _hitValue)
+        {
+            base.GetHit(_hitValue);
+            Debug.Log($"玩家受到伤害： {_hitValue}");
+        }
+
         private Vector2 _vec;
 
         void OnGUI()
-        {
+        { 
             if (agent != null)
                 GUILayout.Label($"RemainingDist: {agent.remainingDistance}");
             _vec = GUILayout.BeginScrollView(_vec);

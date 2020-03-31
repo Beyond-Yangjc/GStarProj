@@ -36,7 +36,7 @@ namespace GStar.Prepare
         /// <summary>
         /// 移动速度
         /// </summary>
-        [Range(0, 100)] public float MoveSpeed; 
+        [Range(0, 100)] public float MoveSpeed;
 
         /// <summary>
         /// 加速度
@@ -47,6 +47,16 @@ namespace GStar.Prepare
         /// 转身速度
         /// </summary>
         [Range(0, 1800)] public float RotSpeed;
+
+        /// <summary>
+        /// 索敌范围-角度
+        /// </summary>
+        [Range(0, 90)] public float LockAngle;
+
+        /// <summary>
+        /// 索敌范围-距离
+        /// </summary>
+        [Range(0, 100)] public float LockDist;
     }
 
     public static class CharacterPropertyExtension
@@ -61,6 +71,8 @@ namespace GStar.Prepare
             _property.MoveSpeed = _fromProperty.MoveSpeed;
             _property.RotSpeed = _fromProperty.RotSpeed;
             _property.Acceleration = _fromProperty.Acceleration;
+            _property.LockAngle = _fromProperty.LockAngle;
+            _property.LockDist = _fromProperty.LockDist;
             return _property;
         }
     }

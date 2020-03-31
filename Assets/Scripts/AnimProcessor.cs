@@ -90,8 +90,7 @@ namespace GStar.Prepare
             if (animator == null) return;
             curDuration -= Time.deltaTime;
             if (curDuration <= 0)
-            {
-                Debug.Log("Anim结束");
+            { 
                 onOneAnimEnd?.Invoke(curEventCode);
                 ChangeState(new AnimEvent(BaseAnim.AnimState.Idle, Utility.GetEventCode()));
             }

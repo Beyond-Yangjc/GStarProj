@@ -54,15 +54,21 @@ namespace GStar.Prepare
                 this.OnCommandEnd += _handler;
         }
 
-        public virtual void Dispose()
+        public virtual void Dispose(bool _interrupt)
         {
             if (!disposed)
             {
                 disposed = !disposed;
-                eStatus = E_Status.Over;
+                ((IDisposable) this).Dispose();
+                if (_interrupt) return;
                 OnCommandEnd?.Invoke();
                 OnCommandEnd = null;
             }
+        }
+
+        void IDisposable.Dispose()
+        {
+            eStatus = E_Status.Over;
         }
     }
 
@@ -112,7 +118,7 @@ namespace GStar.Prepare
 //                    if (!agent.hasPath || Math.Abs(agent.velocity.sqrMagnitude) < 0.01f)
 //                    {
                     animProcessor.ChangeState(new AnimEvent(BaseAnim.AnimState.Idle, Utility.GetEventCode()));
-                    Dispose();
+                    Dispose(false);
 //                    }
                 }
             }
@@ -174,7 +180,7 @@ namespace GStar.Prepare
 
         public override void Tick(float _deltaTime)
         {
-            base.Tick(_deltaTime); 
+            base.Tick(_deltaTime);
             var targetDir = pos - agent.transform.position;
             var angle = Vector3.Angle(targetDir, agent.transform.forward);
             if (Mathf.Abs(angle) > finishTolerance)
@@ -189,7 +195,7 @@ namespace GStar.Prepare
             }
             else
             {
-                Dispose();
+                Dispose(false);
             }
         }
     }
@@ -227,8 +233,7 @@ namespace GStar.Prepare
         {
             base.Execute();
             eventCode = Utility.GetEventCode();
-            animProcessor.ChangeState(new AnimEvent(BaseAnim.AnimState.Atk, eventCode, 0.833f));
-            Debug.Log("攻击");
+            animProcessor.ChangeState(new AnimEvent(BaseAnim.AnimState.Atk, eventCode, 0.833f)); 
         }
 
         void OnThisEnd(int _endCode)
@@ -236,16 +241,15 @@ namespace GStar.Prepare
             if (_endCode == eventCode)
             {
                 if (target.isAlive)
-                    target.GetHit(property.Atk);
-                Debug.Log("攻击结束");
+                    target.GetHit(property.Atk); 
                 target = null;
-                Dispose();
+                Dispose(false);
             }
         }
 
-        public override void Dispose()
+        public override void Dispose(bool _interrupt)
         {
-            base.Dispose();
+            base.Dispose(_interrupt);
             animProcessor.onOneAnimEnd -= OnThisEnd;
         }
     }
@@ -267,7 +271,7 @@ namespace GStar.Prepare
         {
             if (animProcessor != null && animProcessor.CurAnimState != BaseAnim.AnimState.Die)
                 animProcessor.ChangeState(new AnimEvent(BaseAnim.AnimState.Idle, Utility.GetEventCode()));
-            Dispose();
+            Dispose(false);
         }
     }
 }

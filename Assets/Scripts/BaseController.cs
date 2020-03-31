@@ -8,6 +8,9 @@ namespace GStar.Prepare
 {
     public abstract class BaseController : MonoBehaviour
     {
+        public int MARKID_SOURCE = 10000;
+        public int markID { get; private set; }
+
         public enum E_Type
         {
             eNull = 0,
@@ -30,7 +33,7 @@ namespace GStar.Prepare
 
         [SerializeField] protected NavMeshAgent agent;
         [SerializeField] protected AnimProcessor animProcessor;
-        [SerializeField] protected CharacterPropertyObject baseProperty;
+        [SerializeField] protected CharacterPropertyObject baseProperty; 
         protected CharacterProperty curProperty;
 
         protected Queue<BaseCommand> cQueue;
@@ -54,6 +57,7 @@ namespace GStar.Prepare
             }
 
             cQueue = new Queue<BaseCommand>();
+            markID = MARKID_SOURCE++;
         }
 
         protected virtual void Start()
@@ -87,7 +91,7 @@ namespace GStar.Prepare
         {
             foreach (var _cmd in cQueue)
             {
-                _cmd.Dispose();
+                _cmd.Dispose(true);
             }
         }
 
@@ -101,6 +105,11 @@ namespace GStar.Prepare
                 cQueue.Enqueue(new StopCommand(animProcessor, agent));
                 animProcessor.ChangeState(new AnimEvent(BaseAnim.AnimState.Die, Utility.GetEventCode()));
             }
+        }
+
+        private void OnApplicationQuit()
+        {
+            ClearCmds();
         }
     }
 }

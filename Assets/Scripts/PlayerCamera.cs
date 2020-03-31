@@ -53,13 +53,17 @@ namespace GStar.Prepare
 
         void Start()
         {
-            if(_followCam == null)_followCam = new FollowCam();
-            if (_followCam._cameraFollowTarget == null)
-                _followCam._cameraFollowTarget = GameObject.FindGameObjectWithTag("Player").transform;
+//            if(_followCam == null)_followCam = new FollowCam();
+//            if (_followCam._cameraFollowTarget == null)
+//                _followCam._cameraFollowTarget = GameObject.FindGameObjectWithTag("Player").transform;
         }
 
         void LateUpdate()
         {
+            if(_followCam == null)_followCam = new FollowCam();
+            if (_followCam._cameraFollowTarget == null)
+                _followCam._cameraFollowTarget = GameObject.FindGameObjectWithTag("Player").transform;
+            
             if (_operateMode == OperateMode.Follow)
             {
                 CameraFollowMove();
